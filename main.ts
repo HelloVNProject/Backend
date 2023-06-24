@@ -12,6 +12,9 @@ app.use(async ctx => {
   ctx.body = 'Hello World';
 });
 
-let server = app.listen(3000);
+let server = app.listen(14514);
+
+const db = require('./app/models');
+db.sequelize.sync();
 
 module.exports = server;
