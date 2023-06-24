@@ -5,7 +5,9 @@ import compareVersion from '../utils/compareVersion'
 async function getLatestVersion(ctx,next) {
     const userVersion = ctx.request.query.userVersion;
     if(userVersion == undefined){
-        ctx.body = "userVersion 是必需的";
+        ctx.body = {
+            'code': 301
+        };
         return;
     }
 
@@ -16,6 +18,7 @@ async function getLatestVersion(ctx,next) {
     const latestVersionInfo = await getObjectLinks(_id);
 
     ctx.body = {
+        'code': 300,
         'data':{
             "hasNewVersion": compareVersion(userVersion, latestVersion),
             "version": latestVersion,
