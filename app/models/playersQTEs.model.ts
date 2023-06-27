@@ -1,9 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
-    const PlayersQTEs = sequelize.define('players',{
+    const PlayersQTEs = sequelize.define('players_qtes',{
         id: {
             type: Sequelize.INTEGER(11),
             primaryKey: true,
-            autoIncreasement: true,
+            autoIncrement: true,
             allowNull: false
         },
         device_id: {
