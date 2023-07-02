@@ -1,13 +1,12 @@
 var routerVersion = require('koa-router')();
 import getObjectLinks from '../utils/getObjectLinks'
 import compareVersion from '../utils/compareVersion'
+import { error, respond } from '../utils/respond';
 
 async function getLatestVersion(ctx,next) {
     const userVersion = ctx.request.query.userVersion;
     if(userVersion == undefined){
-        ctx.body = {
-            'code': 301
-        };
+        error(ctx, 301);
         return;
     }
 
@@ -17,15 +16,12 @@ async function getLatestVersion(ctx,next) {
 
     const latestVersionInfo = await getObjectLinks(_id);
 
-    ctx.body = {
-        'code': 300,
-        'data':{
-            "hasNewVersion": compareVersion(userVersion, latestVersion),
-            "version": latestVersion,
-            "downloadUrl": latestVersionInfo[0].data.downloadUrl,
-            "note": note
-        }
-    };
+    respond(ctx, 300, {
+        "hasNewVersion": compareVersion(userVersion, latestVersion),
+        "version": latestVersion,
+        "downloadUrl": latestVersionInfo[0].data.downloadUrl,
+        "note": note
+    });
 }
 
 routerVersion.get('/v1/versions/teambition/latest', getLatestVersion);

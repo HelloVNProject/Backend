@@ -1,3 +1,5 @@
+import { error, respond } from "../utils/respond";
+
 var routerNodes = require('koa-router')();
 const db = require('../models');
 const Nodes = db.nodes;
@@ -9,17 +11,12 @@ async function getAllNodes(ctx,next) {
         nodes = await Nodes.findAll();
 
     }catch(e){
-        ctx.body = {
-            "code": 101
-        }
+        error(ctx, 101);
         return;
     }
-    ctx.body = {
-        "code": 100,
-        "data": {
-            "nodes": nodes
-        }
-    }
+    respond(ctx, 100, {
+        "nodes": nodes
+    });
 }
 
 async function completeQTEs(ctx,next) {
@@ -57,13 +54,9 @@ async function completeQTEs(ctx,next) {
     else if(falseCount == length)code = 104;
     else code = 103;
 
-    ctx.body = {
-        "code": code,
-        "data": {
-            "nodes": results
-        }
-    }
-
+    respond(ctx, code, {
+        "nodes": results
+    })
 }
 
 routerNodes.get('/v1/nodes', getAllNodes);
