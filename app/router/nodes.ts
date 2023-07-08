@@ -28,20 +28,20 @@ async function getAllNodes(ctx,next) {
     var length = nodes.length;
     for(var i=0;i<length;i++){
         if(nodes[i].type == 1){//Timeline
-            nodes[i].dataValues.qte_title = undefined;
-            nodes[i].dataValues.qte_choices = undefined;
+            nodes[i].dataValues.qteTitle = undefined;
+            nodes[i].dataValues.qteChoices = undefined;
         }
         if(nodes[i].type == 2){//QTE
-            nodes[i].dataValues.timeline_event_time = undefined;
-            nodes[i].dataValues.timeline_level = undefined;
-            nodes[i].dataValues.timeline_content = undefined;
+            nodes[i].dataValues.timelineEventTime = undefined;
+            nodes[i].dataValues.timelineLevel = undefined;
+            nodes[i].dataValues.timelineContent = undefined;
             const qteAmountAllPlayers = await PlayersQTEs.count({
                 where: {
                     node_id: nodes[i].id
                 }
             })
             var qteAmountChoices : Array<Number> = [];
-            for(var choice = 1; choice <= nodes[i].qte_choices; choice++){
+            for(var choice = 1; choice <= nodes[i].qteChoices; choice++){
                 qteAmountChoices[choice-1] = await PlayersQTEs.count({
                     where: {
                         node_id: nodes[i].id,

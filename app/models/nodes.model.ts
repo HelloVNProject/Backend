@@ -22,29 +22,34 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.DECIMAL(4,2),
             allowNull: false
         },
-        timeline_event_time: {
+        timelineEventTime: {
             type: Sequelize.STRING(32),
-            allowNull: true
+            allowNull: true,
+            field: 'timeline_event_time'
         },
-        timelime_level: {
+        timelineLevel: {
             type: Sequelize.INTEGER(1),
             allowNull: false,
-            defaultValue: 1
+            defaultValue: 1,
+            field: 'timelime_level'
         },
-        timeline_content: {
+        timelineContent: {
             type: Sequelize.TEXT,
             allowNull: false,
-            defaultValue: ""
+            defaultValue: "",
+            field: 'timeline_content'
         },
-        qte_title: {
+        qteTitle: {
             type: Sequelize.STRING(64),
             allowNull: false,
-            defaultValue: ""
+            defaultValue: "",
+            field: 'qte_title'
         },
-        qte_choices: {
+        qteChoices: {
             type: Sequelize.INTEGER(1),
             allowNull: false,
-            defaultValue: 0
+            defaultValue: 0,
+            field: 'qte_choices'
         }
     });
 
