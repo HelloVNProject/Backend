@@ -31,7 +31,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER(1),
             allowNull: false,
             defaultValue: 1,
-            field: 'timelime_level'
+            field: 'timeline_level'
         },
         timelineContent: {
             type: Sequelize.TEXT,
