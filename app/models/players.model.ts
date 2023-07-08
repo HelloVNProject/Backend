@@ -14,17 +14,17 @@ module.exports = (sequelize, Sequelize) => {
         "2fa": {
             type: Sequelize.BOOLEAN,
             allowNull: false,
-            default: 0
+            defaultValue: 0
         },
         "2fa_password": {
             type: Sequelize.STRING(32),
             allowNull: false,
-            default: ""
+            defaultValue: ""
         },
         subscribe: {
             type: Sequelize.BOOLEAN,
             allowNull: false,
-            default: 0
+            defaultValue: 0
         },
         save_data: {
             type: Sequelize.JSON,

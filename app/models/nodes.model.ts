@@ -18,6 +18,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING(64),
             allowNull: false
         },
+        chapter: {
+            type: Sequelize.DECIMAL(4,2),
+            allowNull: false
+        },
         timeline_event_time: {
             type: Sequelize.STRING(32),
             allowNull: true
@@ -25,22 +29,22 @@ module.exports = (sequelize, Sequelize) => {
         timelime_level: {
             type: Sequelize.INTEGER(1),
             allowNull: false,
-            default: 1
+            defaultValue: 1
         },
         timeline_content: {
             type: Sequelize.TEXT,
             allowNull: false,
-            default: ""
+            defaultValue: ""
         },
         qte_title: {
             type: Sequelize.STRING(64),
             allowNull: false,
-            default: ""
+            defaultValue: ""
         },
         qte_choices: {
             type: Sequelize.INTEGER(1),
             allowNull: false,
-            default: 0
+            defaulValuet: 0
         }
     });
 

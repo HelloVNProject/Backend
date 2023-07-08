@@ -21,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
         details: {
             type: Sequelize.JSON,
             allowNull: false,
-            default: {}
+            defaultValue: {}
         }
     });
 
