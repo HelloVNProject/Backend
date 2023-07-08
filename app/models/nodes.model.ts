@@ -44,7 +44,7 @@ module.exports = (sequelize, Sequelize) => {
         qte_choices: {
             type: Sequelize.INTEGER(1),
             allowNull: false,
-            defaulValuet: 0
+            defaultValue: 0
         }
     });
 
