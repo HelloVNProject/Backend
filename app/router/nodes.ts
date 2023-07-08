@@ -1,18 +1,57 @@
 import { error, respond } from "../utils/respond";
-
+const { Op } = require("sequelize");
 var routerNodes = require('koa-router')();
 const db = require('../models');
 const Nodes = db.nodes;
 const PlayersQTEs = db.playersQTEs;
 
 async function getAllNodes(ctx,next) {
+    const chapter = ctx.request.query.chapter;
     var nodes;
     try{
-        nodes = await Nodes.findAll();
-
+        if(chapter == undefined){
+            nodes = await Nodes.findAll();
+        }
+        else{
+            nodes = await Nodes.findAll({
+                where: {
+                    chapter: {
+                        [Op.lte]: chapter
+                    }
+                }
+            });
+        }
     }catch(e){
         error(ctx, 101);
         return;
+    }
+    var length = nodes.length;
+    for(var i=0;i<length;i++){
+        if(nodes[i].type == 1){//Timeline
+            nodes[i].dataValues.qte_title = undefined;
+            nodes[i].dataValues.qte_choices = undefined;
+        }
+        if(nodes[i].type == 2){//QTE
+            nodes[i].dataValues.timeline_event_time = undefined;
+            nodes[i].dataValues.timeline_level = undefined;
+            nodes[i].dataValues.timeline_content = undefined;
+            const qteAmountAllPlayers = await PlayersQTEs.count({
+                where: {
+                    node_id: nodes[i].id
+                }
+            })
+            var qteAmountChoices : Array<Number> = [];
+            for(var choice = 1; choice <= nodes[i].qte_choices; choice++){
+                qteAmountChoices[choice-1] = await PlayersQTEs.count({
+                    where: {
+                        node_id: nodes[i].id,
+                        choice: choice
+                    }
+                })
+            }
+            nodes[i].dataValues.qteAmountAllPlayers = qteAmountAllPlayers;
+            nodes[i].dataValues.qteAmountChoices = qteAmountChoices;
+        }
     }
     respond(ctx, 100, {
         "nodes": nodes
