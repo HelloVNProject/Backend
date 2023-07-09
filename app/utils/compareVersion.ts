@@ -13,6 +13,9 @@ function compareVersion (current, latest){
         if(latestVer[i]>currentVer[i] || currentVer[i] == undefined){
             return true;
         }
+        if(latestVer[i]<currentVer[i]){
+            return false;
+        }
     }
     return false;
 }
