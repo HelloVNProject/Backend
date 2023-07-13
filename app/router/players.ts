@@ -52,7 +52,7 @@ async function register(ctx, next) {
         return;
     }
 
-    const newSecret = twoFactor.generateSecret({name:"问候无疆。", account: ""})
+    const newSecret = twoFactor.generateSecret({name:`Hello VN (${body.email})`, account: ""})
     newSecret.qr = "https://www.olzz.com/qr/?text=" + newSecret.uri; //替换原本GoogleAPI为国内二维码API
     if(body.twoFa == true){
         playerInfo = {

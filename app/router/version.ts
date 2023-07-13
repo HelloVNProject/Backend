@@ -12,38 +12,18 @@ async function getLatestVersion(ctx, next) {
         return;
     }
 
-    const versionList = await Versions.findAll({
-        where:{
-            is_latest: true
-        },
-        order: [['updatedAt', 'DESC']]
-    })
+    const versionList = await getObjectLinks("649420e0ec32d58d9c95727d");
     const latest = versionList[0];
-    const hasNewVersion = compareVersion(userVersion, latest.version);
+    var _id = latest.data._id, note = latest.data.note, latestVersion = latest.data.content;
 
-    
-    var response: any = {};
-    response.hasNewVersion = hasNewVersion;
-    if(hasNewVersion){
-        const fileList = await getFileList("Production", latest.version);
-        console.log(fileList.data.content);
-        const latestFile = fileList.data.content[0]
-        response = {
-            ...response,
-            isDev: false,
-            version: latest.version,
-            downloadUrl: latestFile.download_url,
-            body: latest.body,
-            fileSize: latestFile.file_size,
-            createdAt: latest.createdAt
-        }
-    }
+    const latestVersionInfo = await getObjectLinks(_id);
 
-    respond(ctx, 300, response);
-}
-
-async function getLatestDevVersion(ctx, next) {
-    
+    respond(ctx, 300, {
+        "hasNewVersion": compareVersion(userVersion, latestVersion),
+        "version": latestVersion,
+        "downloadUrl": latestVersionInfo[0].data.downloadUrl,
+        "note": note
+    });
 }
 
 routerVersion.get('/v1/versions/latest', getLatestVersion);
