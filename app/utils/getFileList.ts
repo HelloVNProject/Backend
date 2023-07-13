@@ -2,7 +2,7 @@
 
 async function getFileList(mode, version){
     var urlencoded = new URLSearchParams();
-    urlencoded.append("path", "/HelloVN/Production/0.5.3.230710");
+    urlencoded.append("path", `/HelloVN/${mode}/${version}`);
     var headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
     headers.append("Cookie", "file_pwd=32d493ef778082c2f10a2f3b5f06a999:new%20HelloVN()->getDevPwd()%3B");
