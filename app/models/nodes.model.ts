@@ -51,7 +51,7 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: 0,
             field: 'qte_choices'
         }
-    });
+    }, {underscored: true});
 
     return Nodes;
 }

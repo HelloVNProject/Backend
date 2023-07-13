@@ -23,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             defaultValue: {}
         }
-    });
+    }, {underscored: true});
 
     return PlayersQTEs;
 }

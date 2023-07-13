@@ -19,7 +19,8 @@ const db = {
     nodes: require('./nodes.model')(DB, Sequelize),
     players: require('./players.model')(DB, Sequelize),
     playersDevicesId: require('./playersDevicesId.model')(DB, Sequelize),
-    playersQTEs: require('./playersQTEs.model')(DB, Sequelize)
+    playersQTEs: require('./playersQTEs.model')(DB, Sequelize),
+    versions: require('./versions.model')(DB, Sequelize)
 };
 
 module.exports = db;

@@ -34,7 +34,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.JSON,
             allowNull: true
         }
-    });
+    }, {underscored: true});
 
     return Players;
 }
