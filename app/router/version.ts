@@ -11,11 +11,28 @@ async function getLatestVersion(ctx,next) {
     }
 
     const versionList = await getObjectLinks("649420e0ec32d58d9c95727d");
-    const latest = versionList[0];
+    var latest;
+    try {
+        latest = versionList[0];
+        var test = latest.data;
+    }catch(e){
+        error(ctx ,301);
+        return;
+    }
+    if(latest == undefined){
+        error(ctx, 301);
+        return;
+    }
     var _id = latest.data._id, note = latest.data.note, latestVersion = latest.data.content;
 
     const latestVersionInfo = await getObjectLinks(_id);
 
+    try {
+        var test = latestVersionInfo[0].data;
+    }catch(e){
+        error(ctx, 301);
+        return;
+    }
     respond(ctx, 300, {
         "hasNewVersion": compareVersion(userVersion, latestVersion),
         "version": latestVersion,
