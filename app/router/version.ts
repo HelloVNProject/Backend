@@ -8,8 +8,7 @@ import { error, respond } from '../utils/respond';
 async function getLatestVersion(ctx, next, isDev = false) {
     const userVersion = ctx.request.query.userVersion;
     if(userVersion == undefined){
-        error(ctx, 301);
-        return;
+        error(301);
     }
 
     const versionList = await Versions.findAll({
@@ -21,8 +20,7 @@ async function getLatestVersion(ctx, next, isDev = false) {
     })
     const latest = versionList[0];
     if(latest == undefined){
-        error(ctx, 302);
-        return;
+        error(302);
     }
     const hasNewVersion = compareVersion(userVersion, latest.version);
 
@@ -35,8 +33,7 @@ async function getLatestVersion(ctx, next, isDev = false) {
         const fileList = await getFileList(mode, latest.version);
         const latestFile = fileList.data.content[0];
         if(latestFile == undefined){
-            error(ctx, 302);
-            return;
+            error(302);
         }
         response = {
             ...response,

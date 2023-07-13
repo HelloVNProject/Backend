@@ -37,19 +37,16 @@ async function register(ctx, next) {
 
     var isDeviceIdUnique = await checkDeviceId(body.deviceId)
     if(isDeviceIdUnique == false){
-        error(ctx,202);
-        return;
+        error(202);
     }
     var isEmailUnique = await checkEmail(body.email)
     if(isEmailUnique == false){
-        error(ctx,203);
-        return;
+        error(203);
     }
     const emailReg = new RegExp("([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+");
     const isEmailLegal = emailReg.test(body.email);
     if(!isEmailLegal){
-        error(ctx, 204);
-        return;
+        error(204);
     }
 
     const newSecret = twoFactor.generateSecret({name:`Hello VN (${body.email})`, account: ""})
@@ -90,8 +87,7 @@ async function register(ctx, next) {
             email: body.email
         })
     }catch(e){
-        error(ctx,201);
-        return;
+        error(201);
     }
     
     respond(ctx, code, data);

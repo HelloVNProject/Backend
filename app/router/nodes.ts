@@ -22,8 +22,7 @@ async function getAllNodes(ctx,next) {
             });
         }
     }catch(e){
-        error(ctx, 101);
-        return;
+        error(101);
     }
     var length = nodes.length;
     for(var i=0;i<length;i++){

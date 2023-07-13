@@ -1,7 +1,5 @@
-export function error(ctx,code){
-    ctx.body = {
-        "code": code
-    }
+export function error(code){
+    throw new Error(code);
 }
 
 export function respond(ctx, code, data){
