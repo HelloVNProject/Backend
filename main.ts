@@ -3,15 +3,16 @@ const app = new Koa();
 const bodyParser = require('koa-bodyparser');
 
 import router from './app/router'
+import { isNumber } from './app/utils/isNumber';
 
 app.use(async (ctx, next) => {
   // ctx.body = 'Hello World';
   try{
     await next();
   }catch(e){
-    if(e.message === +e.message){ //判断e.message是否为number
+    if(isNumber(e.message)){
       ctx.body = {
-        "code": e.message
+        "code": parseInt(e.message)
       }
     }
     else{
