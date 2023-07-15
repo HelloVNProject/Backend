@@ -1,4 +1,4 @@
-import {fetch, Headers} from 'node-fetch';
+import {Headers} from 'node-fetch';
 
 async function getFileList(mode, version){
     var urlencoded = new URLSearchParams();
