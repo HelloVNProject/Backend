@@ -16,7 +16,7 @@ app.use(async (ctx, next) => {
       }
     }
     else{
-      console.error(`err: ${e.message}`)
+      console.error(`err: ${e.message} (in ${e.fileName} line ${e.lineNumber}:${e.columnNumber})`)
       ctx.body = {
         "code": 0
       }
