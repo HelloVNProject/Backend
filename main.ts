@@ -9,7 +9,7 @@ app.use(async (ctx, next) => {
   try{
     await next();
   }catch(e){
-    if(e.message === e.message + ''){ //判断e.message是否为number
+    if(e.message === +e.message){ //判断e.message是否为number
       ctx.body = {
         "code": e.message
       }
