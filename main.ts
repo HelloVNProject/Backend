@@ -2,6 +2,7 @@ const Koa = require('koa');
 const app = new Koa();
 const bodyParser = require('koa-bodyparser');
 
+import { isNumberObject } from 'util/types';
 import router from './app/router'
 
 app.use(async (ctx, next) => {
@@ -9,8 +10,16 @@ app.use(async (ctx, next) => {
   try{
     await next();
   }catch(e){
-    ctx.body = {
-      "code": e.message
+    if(isNumberObject(e.message) == true){
+      ctx.body = {
+        "code": e.message
+      }
+    }
+    else{
+      console.error(`err: ${e.message}`)
+      ctx.body = {
+        "code": 0
+      }
     }
   }
 });
