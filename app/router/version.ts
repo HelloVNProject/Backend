@@ -29,9 +29,8 @@ async function getLatestVersion(ctx, next, isDev = false) {
     var response: any = {};
     response.hasNewVersion = hasNewVersion;
     if(hasNewVersion){
-        
         const fileList = await getFileList(mode, latest.version);
-        const latestFile = fileList.data.content[0];
+        const latestFile = fileList.data.content.filter(e => e.file_type=='pck')[0]; //筛选文件类型为pck的文件
         if(latestFile == undefined){
             error(302);
         }
@@ -45,7 +44,6 @@ async function getLatestVersion(ctx, next, isDev = false) {
             createdAt: latest.createdAt
         }
     }
-
     respond(ctx, 300, response);
 }
 
