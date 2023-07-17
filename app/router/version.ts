@@ -11,12 +11,21 @@ async function getLatestVersion(ctx, next, isDev = false) {
         error(301);
     }
 
+    var whereClauses;
+    if(isDev){
+        whereClauses = {
+            is_dev: true
+        }
+    }
+    else{
+        whereClauses = {
+            is_latest: true
+        }
+    }
+
     const versionList = await Versions.findAll({
-        where:{
-            is_latest: true,
-            is_dev: isDev
-        },
-        order: [['updatedAt', 'DESC']]
+        where: whereClauses,
+        order: [['createdAt', 'DESC']]
     })
     const latest = versionList[0];
     if(latest == undefined){
