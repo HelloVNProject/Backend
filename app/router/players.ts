@@ -4,6 +4,8 @@ const db = require('../models');
 const Players = db.players;
 const PlayersDevicesId = db.playersDevicesId;
 const twoFactor = require("node-2fa");
+const jwt = require('jsonwebtoken')
+const config = require('../config/config')
 
 async function checkDeviceId(deviceId) {
     const result = await PlayersDevicesId.findOne({
@@ -50,6 +52,7 @@ async function register(ctx, next) {
     }
 
     const newSecret = twoFactor.generateSecret({name:`Hello VN (${body.email})`, account: ""})
+    const token = jwt.sign({user_email: body.email}, config.privateKey)
     if(body.twoFa == true){
         playerInfo = {
             email: body.email,
@@ -60,6 +63,7 @@ async function register(ctx, next) {
             setting_data: body.settingData
         };
         data = {
+            "deviceKey": token,
             "twoFaQrcodeData": newSecret.uri,
             "twoFaCodes": newSecret.secret,
             "dataSaved": true
@@ -73,6 +77,7 @@ async function register(ctx, next) {
             subscribe:body.subscribe
         };
         data = {
+            "deviceKey": token,
             "twoFaQrcodeData": null,
             "twoFaCodes": null,
             "dataSaved": false
@@ -80,7 +85,7 @@ async function register(ctx, next) {
     }
 
     try{
-        await Players.create(playerInfo);
+        // await Players.create(playerInfo);
         await PlayersDevicesId.create({
             device_id: body.deviceId,
             email: body.email
