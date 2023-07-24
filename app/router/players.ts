@@ -50,7 +50,6 @@ async function register(ctx, next) {
     }
 
     const newSecret = twoFactor.generateSecret({name:`Hello VN (${body.email})`, account: ""})
-    newSecret.qr = "https://www.olzz.com/qr/?text=" + newSecret.uri; //替换原本GoogleAPI为国内二维码API
     if(body.twoFa == true){
         playerInfo = {
             email: body.email,
@@ -61,7 +60,7 @@ async function register(ctx, next) {
             setting_data: body.settingData
         };
         data = {
-            "twoFaImageURL": newSecret.qr,
+            "twoFaQrcodeData": newSecret.uri,
             "twoFaCodes": newSecret.secret,
             "dataSaved": true
         }
@@ -74,7 +73,7 @@ async function register(ctx, next) {
             subscribe:body.subscribe
         };
         data = {
-            "twoFaImageURL": null,
+            "twoFaQrcodeData": null,
             "twoFaCodes": null,
             "dataSaved": false
         }
