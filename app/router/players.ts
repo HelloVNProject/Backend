@@ -85,7 +85,7 @@ async function register(ctx, next) {
     }
 
     try{
-        // await Players.create(playerInfo);
+        await Players.create(playerInfo);
         await PlayersDevicesId.create({
             device_id: body.deviceId,
             email: body.email
