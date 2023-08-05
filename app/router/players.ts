@@ -51,7 +51,7 @@ async function register(ctx, next) {
         error(204);
     }
 
-    const newSecret = twoFactor.generateSecret({name:`Hello VN`, account: "body.email"})
+    const newSecret = twoFactor.generateSecret({name:`Hello VN`, account: body.email})
     const token = jwt.sign({user_email: body.email}, config.privateKey)
     if(body.twoFa == true){
         playerInfo = {
