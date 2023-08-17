@@ -1,5 +1,8 @@
 # HelloVN Backend
 
+你可以在这里查看简体中文版的「说明书」： [README-CN](https://github.com/HelloVNProject/Backend/blob/main/README-CN.md)
+
+
 ## Introduction
 
 Hello there!
