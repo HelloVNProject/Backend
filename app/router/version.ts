@@ -40,6 +40,7 @@ async function getLatestVersion(ctx, next, isDev = false) {
     if(hasNewVersion){
         const fileList = await getFileList(mode, latest.version);
         const latestFile = fileList.data.content.filter(e => e.file_type=='pck')[0]; //筛选文件类型为pck的文件
+        const latestFileApk = fileList.data.content.filter(e => e.file_type=='apk')[0]; //筛选文件类型为pck的文件
         if(latestFile == undefined){
             error(302);
         }
@@ -48,8 +49,10 @@ async function getLatestVersion(ctx, next, isDev = false) {
             isDev: isDev,
             version: latest.version,
             downloadUrl: latestFile.download_url,
+            downloadUrlApk: latestFileApk.download_url,
             body: latest.body,
             fileSize: latestFile.file_size,
+            fileSizeApk: latestFileApk.file_size,
             createdAt: latest.createdAt
         }
     }
