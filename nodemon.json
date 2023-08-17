@@ -1,0 +1,9 @@
+{
+    "ext": "*",
+    "watch": [
+      "app/**/*.ts",
+      "app/**/*.js",
+      "main.ts"
+    ],
+    "exec": "ts-node --project tsconfig.json main.ts"
+  }
